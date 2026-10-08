@@ -7,21 +7,21 @@
 
 # Arcana releases
 
-Installers for two Windows apps around the card market of the uaRO private
-server. The source code is kept elsewhere; this repository holds the builds
-and nothing else.
+Installers for two Windows apps around the vendor market of a Ragnarok
+Online server. The source code is kept elsewhere; this repository holds
+the builds and nothing else.
 
 | App | What it does | Releases |
 |---|---|---|
-| **Arcana** | follows the card market, ranks pre-renewal cards by what they are worth and how long they take to farm, and says what is worth buying now | `v<version>`, the release marked **Latest** |
-| **Arcana Crawler** | takes the market every full hour and shares it with every Arcana | `crawler-v<version>`, always a **pre-release** |
+| **Arcana** | follows the market of cards and items, ranks cards, items and monsters by what they are worth and bring, and says what is worth buying now | `v<version>`, the release marked **Latest** |
+| **Arcana Crawler** | collects the market every full hour and shares it with every Arcana | `crawler-v<version>`, always a **pre-release** |
 
 **[Download Arcana](https://github.com/SimonPaidla/arcana-releases/releases/latest)**
 (`Arcana-Setup-<version>.exe`, Windows 11 x64). Arcana Crawler is the
 newest `crawler-v…` pre-release on the
 [releases page](https://github.com/SimonPaidla/arcana-releases/releases)
 (`Arcana-Crawler-Setup-<version>.exe`). You only need it if you want to
-contribute crawls.
+contribute to the shared market.
 
 Once installed, both apps keep themselves up to date from here. There is
 nothing to download a second time.
@@ -35,58 +35,63 @@ nothing to download a second time.
 | 3 | If Windows says *Windows protected your PC*: the installer is not code-signed. *More info* → *Run anyway*. This happens once. |
 
 **What you need:** Windows 11 x64. Arcana reads the market from a shared
-store and needs no account, no browser and no token.
+store and needs no account.
 
 ## What Arcana does
 
-**Market.** What moved in the last hour, day, week or month, and one card
+**Types of goods.** One type at a time — cards, weapons, armor, healing,
+usable items, Etc, pet eggs, pet armor and Cash Shop rewards — across the
+market, the ranking, the economy and the buying advice. A type without
+data is greyed out.
+
+**Market.** What moved in the last hour, day, week or month, and one good
 in full:
 - its price now, its **fair value** (what it sells for at today's prices), and a rating of the price against the month;
-- median and mean prices over 24 hours, 7 and 30 days, and the confirmed sales;
-- a price chart with the sales in it;
-- what to ask when you sell, and whether to sell now or wait.
-
-**Economy.** The market as a whole: merchants online, card offers, sales
-and zeny traded, and a price index that shows whether cards are getting
-dearer or cheaper. It also shows when prices are lowest and sales most
-frequent, by hour of day and by weekday, the most traded cards, and
-unusual events such as server restarts.
+- a price chart over 24 hours, 7 or 30 days or everything, with the confirmed sales in it;
+- what to ask when you sell;
+- equipment with its variants — refine and cards — and what their parts are worth; goods that stack per unit, with recipes, NPC prices and the monsters that drop them.
 
 **Ranking.** Every card with its price, fair value, rating, sales, farm
 spot, hours per card and zeny per hour, and a score weighing value
-against hit points against spawn count. Hovering a price opens the
-individual offers behind it — vendor, shop, coordinates. It can be saved
-as Excel or CSV.
+against hit points, spawn count and drop rate; every item of another type
+by the zeny traded; and every monster by what all its drops bring an
+hour. Hovering a price opens the individual offers behind it — vendor,
+shop, coordinates. It can be saved as Excel or CSV.
 
-**Buying advice.** Offers well below their card's fair value, each with
-its saving, what reselling would bring, and how much it rests on. Cards
-whose price is falling are held back: waiting is the better buy.
+**Economy.** The chosen type's market as a whole: merchants online, a
+price index that shows whether goods are getting dearer or cheaper, the
+zeny traded and its share of all types, when prices are lowest by hour
+of day and by weekday, the most traded goods, and unusual events such as
+server restarts.
+
+**Buying advice.** Offers below their fair value, stacks below it per
+unit, equipment with cards below the worth of its parts, and offers below
+what an NPC pays — each with its saving and how much it rests on. NPC
+prices count with Overcharge (+24 %) while it is switched on.
 
 **Calculates damage.** A pre-renewal damage calculator is built in, and its
 DPS feeds the yield columns.
 
-**Reads a shared market.** Every crawl taken with Arcana Crawler lives in
-[arcana-snapshots](https://github.com/SimonPaidla/arcana-snapshots).
+**Reads a shared market.** Every price check taken with Arcana Crawler
+lands in [arcana-snapshots](https://github.com/SimonPaidla/arcana-snapshots).
 Arcana reads it at start and every 15 minutes. It keeps the last 31 days
-crawl by crawl, and every card's daily prices and sales for good.
+check by check, and every card's and item's daily prices and sales for
+good.
 
 ## Arcana Crawler
 
-Arcana Crawler runs a browser in the background from **Start** to
-**Stop**. At every full hour it reads every card offer on the server,
-keeps the result, and offers it to the shared store as a pull request. A
-window opens only when a person is needed: to sign in, or to answer a
-Cloudflare check. Everything else it works around by itself.
+Arcana Crawler collects the market for every Arcana. From **Start** to
+**Stop** it takes a price check at every full hour — the cards, and the
+item types you choose in its settings — and adds it to the shared store.
+It asks for you only to sign in to the game; everything else it handles by
+itself, and it carries on by itself after an error.
 
-**What you need:** Windows 10 or 11, a uaRO account (you sign in yourself,
-in the crawler's window), and a GitHub token for `arcana-snapshots`. The
-token is fine-grained, for that repository only, with *Contents* and *Pull
-requests* read and write. The first start fetches the browser, about
-470 MB, once.
+**What you need:** Windows 10 or 11, a game account, and access to the
+shared store — ask the maintainer. The first start sets the crawler up
+once; that takes a few minutes and a few hundred megabytes.
 
-Only the newest crawler writes the format the store accepts. It updates
-itself, and installs a new version in a quiet moment, when no crawl is
-running and no sign-in window is open.
+Only a current version can contribute. The crawler updates itself and
+installs a new version only when no price check is running.
 
 ## Updates
 
@@ -113,19 +118,19 @@ warns before the first installation and never afterwards.
 
 | App | Folder | Holds |
 |---|---|---|
-| Arcana | `%APPDATA%\arcana` | the crawls of the last 31 days, the daily history, the game data, the settings, the log |
-| Arcana Crawler | `%APPDATA%\arcana-crawler` | its own crawls, the ones waiting to be offered, the encrypted token and sign-in, the browser profile, the log |
-| Arcana Crawler | `%LOCALAPPDATA%\arcana-crawler\camoufox` | the browser |
+| Arcana | `%APPDATA%\arcana` | the price checks of the last 31 days, the daily history, the game data, the settings, the log |
+| Arcana Crawler | `%APPDATA%\arcana-crawler` | its price checks, its settings, your sign-in and access — encrypted —, the log |
+| Arcana Crawler | `%LOCALAPPDATA%\arcana-crawler` | what it sets up at its first start |
 
 Installing, updating and uninstalling never touch these folders. To
 remove an app: *Settings → Apps → Installed apps → Arcana* (or *Arcana
 Crawler*) *→ Uninstall*. Its folders stay; delete them by hand if you
 want them gone too.
 
-**Coming from Arcana 1.x:** Arcana 2.0 reads only crawls in the format of
-Arcana Crawler 1.1.0, and the shared history started over on 24 September
-2026. The folder of 1.x, `%APPDATA%\uaro-card-crawler`, is no longer read
-and can be deleted.
+**Coming from Arcana 1.x:** Arcana 2.0 reads only price checks of Arcana
+Crawler 1.1.0 and later, and the shared history started over on 24
+September 2026. The data folder of 1.x under `%APPDATA%` is no longer
+read and can be deleted.
 
 ## What a release contains
 
